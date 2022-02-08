@@ -1,41 +1,62 @@
 package com.hudson.silva.cursoJava.Exceptions.Ex1.model.Entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Reservation {
 
-    private Date checkin;
-    private Date checkout;
-    private int roomNumber;
+    private Date checkIn;
+    private Date checkOut;
+    private Integer roomNumber;
 
-    public Reservation(){}
-    public Reservation(Date checkin, Date checkout, int roomNumber) {
-        this.checkin = checkin;
-        this.checkout = checkout;
+    public static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+    public Reservation(Date checkIn, Date checkOut, Integer roomNumber) {
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
         this.roomNumber = roomNumber;
     }
 
-    public Date getCheckin() {
-        return checkin;
+
+    public Date getCheckIn() {
+        return checkIn;
     }
 
-    public void setCheckin(Date checkin) {
-        this.checkin = checkin;
+    public Date getCheckOut() {
+        return checkOut;
     }
 
-    public Date getCheckout() {
-        return checkout;
-    }
-
-    public void setCheckout(Date checkout) {
-        this.checkout = checkout;
-    }
-
-    public int getRoomNumber() {
+    public Integer getRoomNumber() {
         return roomNumber;
     }
 
-    public void setRoomNumber(int roomNumber) {
+
+    public void setRoomNumber(Integer roomNumber) {
         this.roomNumber = roomNumber;
+    }
+
+    public long duration() {
+
+        long diff = getCheckOut().getTime() - getCheckIn().getTime();
+        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+    }
+
+    public void updateDates(Date checkIn, Date checkOut) {
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+    }
+
+    @Override
+    public String toString() {
+        return "Room : " +
+                getRoomNumber() +
+                ", Date checkIn " +
+                sdf.format(getCheckIn()) +
+                ", Date checkOut " +
+                sdf.format(getCheckOut()) +
+                " " +duration() +
+                " Nights";
+
     }
 }
