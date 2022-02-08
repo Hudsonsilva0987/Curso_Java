@@ -41,18 +41,14 @@ public class Program {
             System.out.println("Enter date Check-out (dd/MM/yyyy) : ");
             checkOut = sdf.parse(sc.next());
 
-            if((!checkOut.after(checkIn)) || (checkIn.before(now) || checkOut.before(now))) {
-                System.out.println("Invalid Date to update ");
-            }else {
-                reservation.updateDates(checkIn, checkOut);
+
+                String error = reservation.updateDates(checkIn, checkOut);
+                if(error != null){
+                    System.out.println("Erro Reservation : " + error);
+                }else{
                 System.out.println("Reservation : " + reservation.toString());
-            }
-        }
-
-
+            }}
         sc.close();
         System.out.println("Program Finish");
-
+        }
     }
-
-}
